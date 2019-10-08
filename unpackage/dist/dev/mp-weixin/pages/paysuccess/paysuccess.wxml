@@ -1,0 +1,1 @@
+<view class="content"><view class="pay-status"><image src="../../static/d5_ic_03.png" mode></image>订单付款成功</view><view class="pay-btns"><view class="btn-item btn-white">查看订单</view><view class="btn-item">返回首页</view></view></view>

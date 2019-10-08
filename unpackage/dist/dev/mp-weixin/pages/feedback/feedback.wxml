@@ -1,0 +1,1 @@
+<view class="content"><view class="upload-msg"><view class="item"><view class="item-b"><textarea placeholder="请反馈您宝贵的意见" data-event-opts="{{[['input',[['__set_model',['','content','$event',[]]]]]]}}" value="{{content}}" bindinput="__e"></textarea></view></view></view><view data-event-opts="{{[['tap',[['submit',['$event']]]]]}}" class="btn-save" bindtap="__e">提交</view></view>

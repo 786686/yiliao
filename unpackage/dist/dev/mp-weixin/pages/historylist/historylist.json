@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "历史病例",
+  "usingComponents": {
+    "empty": "/pages/empty/empty"
+  }
+}

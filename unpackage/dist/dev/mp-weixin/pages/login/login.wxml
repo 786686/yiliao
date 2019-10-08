@@ -1,0 +1,1 @@
+<view class="contain"><image src="../../static/ic_launcher.png"></image><view class="uni-btn-v uni- uni-common-mt"><block wx:if="{{canIUse}}"><button open-type="getUserInfo" data-event-opts="{{[['getuserinfo',[['bindGetUserInfo',['$event']]]]]}}" bindgetuserinfo="__e">授权登录</button></block></view></view>

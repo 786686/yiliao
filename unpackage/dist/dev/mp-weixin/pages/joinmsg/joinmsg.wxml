@@ -1,0 +1,1 @@
+<view class="content"><view class="link-con"><rich-text nodes="{{htmlNodes}}"></rich-text></view><view data-event-opts="{{[['tap',[['join',['$event']]]]]}}" class="btn-save" bindtap="__e">我要加盟</view></view>

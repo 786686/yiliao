@@ -1,0 +1,17 @@
+
+.contain {
+	padding-top: 100rpx;
+}
+image {
+	width: 192rpx;
+	height: 192rpx;
+	margin: 0 auto;
+	display: block;
+	border-radius: 50%;
+}
+button {
+	margin: 100rpx 50rpx;
+	background-color: #1AAD19;
+	color: #ffffff;
+}
+

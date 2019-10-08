@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "门诊列表",
+  "usingComponents": {
+    "empty": "/pages/empty/empty",
+    "mpvue-city-picker": "/components/mpvue-citypicker/mpvueCityPicker",
+    "search": "/pages/headsearch/headsearch"
+  }
+}

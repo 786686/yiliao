@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "招聘信息",
+  "usingComponents": {
+    "empty": "/pages/empty/empty"
+  }
+}

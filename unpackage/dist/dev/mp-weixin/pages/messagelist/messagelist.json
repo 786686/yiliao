@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "留言咨询列表",
+  "usingComponents": {
+    "empty": "/pages/empty/empty"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="content"><view class="pay-status"><image src="../../static/d5_ic_04.png" mode></image>付款失败</view><view class="pay-btns"><view class="btn-item">重新支付</view></view></view>

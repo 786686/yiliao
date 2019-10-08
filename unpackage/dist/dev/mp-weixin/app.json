@@ -1,0 +1,87 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/myjob/myjob",
+    "pages/login/login",
+    "pages/bindphone/bindphone",
+    "pages/outpatient/outpatient",
+    "pages/addresslist/addresslist",
+    "pages/addaddress/addaddress",
+    "pages/member/member",
+    "pages/pay/pay",
+    "pages/paysuccess/paysuccess",
+    "pages/payfail/payfail",
+    "pages/shop/shop",
+    "pages/joblist/joblist",
+    "pages/my/my",
+    "pages/search/search",
+    "pages/medicinedetail/medicinedetail",
+    "pages/cart/cart",
+    "pages/cartdetail/cartdetail",
+    "pages/car/car",
+    "pages/classifydetail/classifydetail",
+    "pages/collect/collect",
+    "pages/confirmorder/confirmorder",
+    "pages/doctor/doctor",
+    "pages/feedback/feedback",
+    "pages/health/health",
+    "pages/historycheck/historycheck",
+    "pages/historylist/historylist",
+    "pages/jobdetail/jobdetail",
+    "pages/join/join",
+    "pages/link/link",
+    "pages/order/order",
+    "pages/outpatientlist/outpatientlist",
+    "pages/patientcheck/patientcheck",
+    "pages/patienthistory/patienthistory",
+    "pages/personmsg/personmsg",
+    "pages/releasejob/releasejob",
+    "pages/share/share",
+    "pages/leavemsg/leavemsg",
+    "pages/orderdetail/orderdetail",
+    "pages/messagelist/messagelist",
+    "pages/messagedetail/messagedetail",
+    "pages/joinmsg/joinmsg"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#604EFF",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tab_ic_01_s.png",
+        "selectedIconPath": "static/tab_ic_01_s.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "iconPath": "static/tab_ic_02.png",
+        "selectedIconPath": "static/tab_ic_02_s.png",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/joblist/joblist",
+        "iconPath": "static/tab_ic_04.png",
+        "selectedIconPath": "static/tab_ic_04_s.png",
+        "text": "招聘信息"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/tab_ic_05.png",
+        "selectedIconPath": "static/tab_ic_05_s.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap45.json"
+}

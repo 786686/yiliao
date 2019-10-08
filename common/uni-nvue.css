@@ -1,0 +1,366 @@
+/* #ifndef APP-PLUS-NVUE */
+page {
+    min-height: 100%;
+    height: auto;
+}
+/* #endif */
+
+*{ color: #333; line-height: 1;}
+view{ color: inherit;}
+
+
+/* 解决头条小程序字体图标不显示问题，因为头条运行时自动插入了span标签，且有全局字体 */
+/* #ifdef MP-TOUTIAO */
+text :not(view) {
+    font-family: uniicons;
+}
+/* #endif */
+
+.uni-icon {
+    font-family: uniicons;
+    font-weight: normal;
+}
+
+.uni-container {
+    padding: 15px;
+    background-color: #f8f8f8;
+}
+
+.uni-header-logo {
+    padding: 15px 15px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10upx;
+}
+
+.uni-header-image {
+    width: 80px;
+    height: 80px;
+}
+
+.uni-hello-text {
+    margin-bottom: 20px;
+}
+
+.hello-text {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.hello-link {
+    color: #7A7E83;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.uni-panel {
+    margin-bottom: 12px;
+}
+
+.uni-panel-h {
+    background-color: #ffffff;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+}
+/*
+.uni-panel-h:active {
+    background-color: #f8f8f8;
+}
+ */
+.uni-panel-h-on {
+    background-color: #f0f0f0;
+}
+
+.uni-panel-text {
+    flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.uni-panel-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+    transform: rotate(0deg);
+    transition-duration: 0s;
+    transition-property: transform;
+}
+
+.uni-panel-icon-on {
+    transform: rotate(180deg);
+}
+
+.uni-navigate-item {
+    flex-direction: row;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-top-style: solid;
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    padding: 12px;
+}
+
+.uni-navigate-item:active {
+    background-color: #f8f8f8;
+}
+
+.uni-navigate-text {
+    flex: 1;
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.uni-navigate-icon {
+    margin-left: 15px;
+    color: #999999;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.f20{ font-size: 20upx;}
+.f22{ font-size: 22upx;}
+.f24{ font-size: 24upx;}
+.f26{ font-size: 26upx;}
+.f28{ font-size: 28upx;}
+.f30{ font-size: 30upx;}
+.f40{ font-size: 40upx;}
+
+
+/* 首页 */
+.search-inp {
+	height: 132upx;
+	padding: 0 35upx;
+	display: flex;
+	align-items: center;
+
+	.search-inp-in {
+		height: 72upx;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		background-color: #F7F7F7;
+		border-radius: 10upx;
+
+		input {
+			flex: 1;
+			font-size: 28upx;
+		}
+
+		image.icon-search {
+			width: 27upx;
+			height: 27upx;
+			margin: 0 21upx 0 30upx;
+		}
+	}
+
+	.icon-msg {
+		width: 88upx;
+		height: 88upx;
+		margin-left: 34upx;
+	}
+}
+
+.index-select {
+	margin: 10upx 0 40upx;
+	display: flex;
+	align-items: center;
+
+	.item {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 28upx;
+		position: relative;
+
+		&:after {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 1px;
+			height: 100%;
+			background-color: #CCCCCC;
+		}
+
+		&:last-child:after {
+			width: 0;
+		}
+
+		image {
+			width: 22upx;
+			height: 12upx;
+			margin-left: 19upx;
+		}
+	}
+}
+
+.index-swiper {
+	padding: 0 35upx;
+
+	image {
+		width: 100%;
+	}
+}
+
+.index-second-nav {
+	padding: 50upx 0;
+	display: flex;
+
+	.item {
+		font-size: 30upx;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+
+		&:after {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 11upx;
+			bottom: 11upx;
+			width: 1px;
+			background-color: #CCCCCC;
+		}
+
+		&:last-child:after {
+			width: 0;
+		}
+
+		image {
+			width: 72upx;
+			height: 72upx;
+			margin-right: 20upx;
+		}
+	}
+}
+
+/* .index-medicine {
+	.tit {
+		padding-top: 20upx;
+		font-size: 40upx;
+		font-weight: bold;
+		padding-left: 46upx;
+		margin-bottom: 30upx;
+	}
+
+	.medicine-list {
+		padding:0  35upx 30upx;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		overflow-x: scroll;
+		.item {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			background-color: #fff;
+			box-shadow:  3upx 11upx 25upx 2upx rgba(183,183,183,0.2);
+			border-radius: 10upx;
+			width: 270upx;
+			margin-right: 32upx;
+			height: 435upx;
+			.item-in{
+				width: 270upx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			image {
+				width: 270upx;
+				height: 270upx;
+				display: block;
+			}
+
+			.item-name {
+				font-size: 26upx;
+				color: #666;
+				margin: 23upx 0 18upx;
+				padding-left: 23upx;
+			}
+
+			.item-standard {
+				font-size: 24upx;
+				color: #666;
+				margin-bottom: 27upx;
+				padding-left: 23upx;
+			}
+
+			.item-price {
+				font-size: 28upx;
+				color: #000;
+				font-weight: bold;
+				padding-left: 23upx;
+				.item-unit {
+					font-size: 22upx;
+				}
+				margin-bottom: 28upx;
+			}
+
+			&.item-more {
+				margin-right: 0;				
+				.item-in{
+					align-items: center;
+				}
+				width: 270upx;
+				align-items: center;
+				image {
+					width: 120upx;
+					height: 120upx;
+					margin-bottom: 30upx;
+				}
+				.item-more-txt{
+				color: #666;}
+				font-size: 28upx;
+			}
+		}
+	}
+} */
+
+.index-recommend{
+	.tit {
+		padding-top: 20upx;
+		font-size: 40upx;
+		font-weight: bold;
+		padding-left: 46upx;
+		margin-bottom: 30upx;
+	}
+	.recommend-list{
+		padding: 0 35upx;
+		.item{
+			margin-bottom: 40upx;
+			display: flex;
+			image{
+				width: 310upx; height: 240upx; margin-right: 40upx;
+			}
+			.item-in{ flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.item-in-in{
+					padding-top: 5upx;
+					font-size: 30upx;
+					.item-name{ font-weight: bold; margin-bottom: 18upx; line-height: 38upx;}
+					.item-dec{
+						display: flex;
+						justify-content: space-between;
+						font-size: 22upx; color: #666;
+					}
+				}				
+				.item-time{
+					font-size: 24upx;
+					margin-bottom: 14upx;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1 @@
+<view class="content"><mpvue-city-picker class="vue-ref" vue-id="1" themeColor="{{themeColor}}" pickerValueDefault="{{cityPickerValueDefault}}" data-ref="mpvueCityPicker" data-event-opts="{{[['^onCancel',[['onCancel']]],['^onConfirm',[['onConfirm']]]]}}" bind:onCancel="__e" bind:onConfirm="__e" bind:__l="__l"></mpvue-city-picker></view>

@@ -1,0 +1,1 @@
+<view class="content"><view class="pay"><view class="item-top">需要支付<text class="item-price">¥168.00</text></view><view class="tit">请选择支付方式</view><view class="item-pay"><view class="item-l">微信</view><label class="checkbox"><checkbox checked></checkbox></label></view></view><view data-event-opts="{{[['tap',[['submit',['$event']]]]]}}" class="btn-save" bindtap="__e">提交</view></view>

@@ -1,0 +1,1 @@
+<view class="content"><view class="is-history"><view class="item-dec">是否有过病历史</view><switch checked data-event-opts="{{[['change',[['',['$event']]]]]}}" bindchange="__e"></switch></view><view class="btn-save">保存，完成登记</view><view class="btn-save">+新增病史</view></view>
