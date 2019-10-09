@@ -17,7 +17,11 @@
 </template>
 
 <style lang="scss">
-	@import '../../common/index.scss';
+	.my-top {
+		// background-image: url("../../static/d_bg.png") no-repeat;
+		background: url("../../static/d_bg.png") no-repeat;
+		background-size: 100% 400upx;
+	}
 	.member-con{
 		box-shadow:7upx 6upx 47upx 7upx rgba(166,166,166,0.22);
 		border-radius:20upx;
@@ -35,6 +39,7 @@
 </style>
 
 <script>
+	const tools = require('@/common/tools.js');
 	export default {
 		data() {
 			return {

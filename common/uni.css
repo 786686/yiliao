@@ -638,7 +638,7 @@ radio-group label, checkbox-group label{
 .uni-uploader-body {
 	margin-top: 16upx;
 }
-.uni-uploader__files {
+/* .uni-uploader__files {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -647,7 +647,7 @@ radio-group label, checkbox-group label{
 	margin: 10upx;
 	width: 210upx;
 	height: 210upx;
-}
+} */
 .uni-uploader__img {
 	display: block;
 	width: 210upx;

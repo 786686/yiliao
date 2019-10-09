@@ -60,12 +60,16 @@
 				server:server.domain,
 				description:"",
 				diseaseImgList:[],
-				doctorId:""
+				doctorId:"",
+				apply:false
 			}
 		},
 		onLoad(options) {
 			if(options.id){
-				this.doctorId = options.id;
+				this.id = options.id;
+			}
+			if(options.apply){
+				this.apply = true;
 			}
 			// this.doctorId = 1;
 		},
@@ -74,15 +78,26 @@
 			submit(){
 				if(tools.isEmpty(this.description,"请输入病情描述")){return;}
 				let that = this;
+				if(this.apply){
+					let params = { 
+						parentId:that.id,
+						description:this.description,
+						images: this.diseaseImgList.toString().replace(new RegExp(",","g"),";"),
+					};
+					tools.request("/api/my/replyAdvisory.json", params,1,true).then(function(data) {
+						tools.toastJumpBack("回复成功","/pages/messagedetail/messagedetail?id="+that.id);
+					});
+					return;
+				}
+				
 				let params = { 
-					doctorId:this.doctorId,
-					parentId:0,
+					doctorId:this.id,
+					// parentId:0,
 					description:this.description,
 					images: this.diseaseImgList.toString().replace(new RegExp(",","g"),";"),
 				};
 				tools.request("/api/index/advisory.json", params,1,true).then(function(data) {
-					tools.toastJumpBack("留言成功","/pages/doctor/doctor");
-					
+					tools.toastJumpBack("留言成功","/pages/doctor/doctor?id"+that.id);
 				})
 			},
 			async checkPermission(code) {

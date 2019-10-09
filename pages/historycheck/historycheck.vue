@@ -88,26 +88,35 @@
 			}
 		},
 		onLoad(options) {
+			this.getTypeList();
 			if(options.id){
 				this.id = options.id;
 				this.getDetail()
 			}
-			this.getTypeList();
 		},
 		methods: {
-			getDetail(){
+			async getDetail(){
 				let that = this;
 				let params = { 
 					id:this.id
 				};
-				tools.request("/api/my/treatmentRecordDetails.json", params,1,true).then(function(data) {
-					
+				await tools.request("/api/my/treatmentRecordDetails.json", params,1,true).then(function(data) {
 					that.item = data;
-					console.log(that.item);
-					that.date = that.item.treatmentTime;
+					that.date = that.item.treatmentTime.substr(0,10);
 					that.hospital = that.item.hospital;
 					that.disease = that.item.disease;
-					that.diseaseImage = that.item.diseaseImgList
+					that.diseaseImgList = that.item.diseaseImage.split(";");
+					that.imageList = that.item.diseaseImage.split(";");
+					
+					if(that.typeNameList.indexOf(that.item.typeIllnessString) != -1){
+						that.index = that.typeNameList.indexOf(that.item.typeIllnessString);
+					}
+					
+					that.typeList.map( (item,i) => {
+						if(i == that.index){
+							that.typeId = that.typeList[i].id
+						}
+					})
 				})
 			},
 			submit(){
@@ -121,9 +130,17 @@
 					diseaseImage: this.diseaseImgList.toString().replace(new RegExp(",","g"),";"),
 					typeIllnessId:this.typeId,
 				};
+				//编辑
+				if(that.id != ""){
+					params.id = that.id;
+					tools.request("/api/my/editTreatmentRecord.json", params,1,true).then(function(data) {
+						tools.toastJumpBack("编辑病例成功", "/pages/historylist/historylist");
+					})
+					return;
+				}
 				tools.request("/api/my/addTreatmentRecord.json", params,1,true).then(function(data) {
 					tools.toastJumpTab("添加病例成功", "/pages/index/index");
-				})
+				});
 			},
 			async checkPermission(code) {
 			    let type = code ? code - 1 : this.sourceTypeIndex;
@@ -241,16 +258,15 @@
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
 			},
-			getTypeList(){
+			async getTypeList(){
 				let that = this;
 				let params = {};
-				tools.request("/api/my/typeIllnessList.json", params).then(function(data) {
+				await tools.request("/api/my/typeIllnessList.json", params).then(function(data) {
 					that.typeList = data.typeIllnessDTOList;
 					
 					that.typeList.map( item => {
 						that.typeNameList.push(item.name);
 					})
-					
 					if(that.typeList.length > 0){
 						that.typeId = that.typeList[0].id
 					}

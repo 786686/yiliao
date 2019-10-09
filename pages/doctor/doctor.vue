@@ -77,7 +77,7 @@
 					let that = this;
 					tools.request("/api/index/judgeIsUpdateUserInfo.json", {},1,true).then(function(data) {
 						if(data.isFill == 1){
-							tools.jumpTo("/pages/leavemsg/leavemsg");
+							tools.jumpTo("/pages/leavemsg/leavemsg?id="+that.id);
 						}else{
 							tools.toastJump("未填写个人信息", "/pages/personmsg/personmsg");
 							

@@ -10,11 +10,11 @@
 				<view class="item-in">
 					<view class="item-l">处方药物</view>
 					<view class="item-r">
-						<image :src="type" mode="" v-for="(type,i) in item.images" :key="i"></image>
+						<image :src="type" mode="" v-for="(type,i) in item.images" :key="i" :data-src="type" @tap="previewImage"></image>
 					</view>
 				</view>
 				<view class="btns">
-					<view class="btn btn-white" @click="remove(item.id)">
+					<view class="btn btn-white" @click="remove(item.id,index)">
 						删除
 					</view>
 					<view class="btn" @click="detail(item.id)">
@@ -29,7 +29,6 @@
 
 <script>
 	const tools = require('../../common/tools.js');
-	const server = require('../../common/server.js');
 	import empty from '../empty/empty.vue';
 	export default {
 				components:{
@@ -38,23 +37,34 @@
 		data() {
 			return {
 				items:[],
-				server:server.domain
+				imageList:[],
 			}
 		},
 		onLoad() {
+		},
+		onShow() {
 			this.getList()
 		},
 		methods: {
+            previewImage: function(e) {
+				console.log(e.target.dataset.src)
+                var current = e.target.dataset.src
+                uni.previewImage({
+                    current: current,
+                    urls: this.imageList
+                })
+            },
 			detail(id){
 				tools.jumpTo("/pages/messagedetail/messagedetail?id="+id)
 			},
-			remove(id){
+			remove(id,index){
 				let that = this;
 				let params = {
 					id:id
 				}
 				tools.request("/api/my/delAdvisory.json", params,1,true).then(function(data) {
-					tools.toastJumpTab("删除成功","/pages/my/my");
+					tools.toast("删除成功");
+					that.items.splice(index,1);
 				})
 			},
 			getList(){
@@ -64,12 +74,12 @@
 					pageNumber:1
 				}
 				tools.request("/api/my/advisoryList.json", params,1,true).then(function(data) {
-					console.log(data)
-					
 					for(let i in data.advisoryDTOList){
 						data.advisoryDTOList[i].images = data.advisoryDTOList[i].images.split(';');
+						for(let j in data.advisoryDTOList[i].images){
+							that.imageList.push(data.advisoryDTOList[i].images[j])
+						}
 					}
-					
 					that.items = data.advisoryDTOList;
 				})
 			}

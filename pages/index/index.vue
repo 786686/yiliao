@@ -16,14 +16,13 @@
 				<image src="../../static/home_icon_2.png" mode=""></image>诊治门诊
 			</view>
 		</view>
-		<view class="index-medicine">
+		<!-- <view class="index-medicine">
 			<view class="tit">药物推荐</view>
 			<view class="medicine-list">
 				<view class="item" v-for="(item,index) in recommendList" :key="index" @click="recommendDetail(item.id)">
 					<view class="item-in">
 						<image :src="item.images" mode=""></image>
 						<view class="item-name">{{item.name}}</view>
-						<!-- <view class="item-standard">{{item.standard}}</view> -->
 						<view class="item-price"><text class="item-unit">¥</text>{{item.retailPrice}}</view>
 					</view>
 				</view>
@@ -34,7 +33,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="index-recommend">
 			<view class="tit">健康推荐</view>
 			<view class="recommend-list">

@@ -10,7 +10,7 @@
 				<view class="item-in">
 					<view class="item-l">处方药物</view>
 					<view class="item-r">
-						<image :src="i" mode="" v-for="i in item.images.split(';')"></image>
+						<image :src="i" :key="index" v-for="(i,index) in item.images" :data-src="i" @tap="previewImage"></image>
 					</view>
 				</view>
 			</view>
@@ -18,7 +18,7 @@
 		<view class="leavemsg">
 			<view class="tit">留言</view>
 			<view class="leavemsg-list">
-				<view class="item" v-for="i in item.leaveMessage">
+				<view class="item" v-for="i in item.leaveMessage" :key="i">
 					<view class="item-top">
 						<view class="item-l">
 							<image :src="i.avatar"></image>
@@ -30,10 +30,11 @@
 						{{i.description}}
 					</view>
 					<view class="item-pics">
-						<image :src="msg" mode="" v-for="msg in i.images.split(';')"></image>
+						<image :src="msg" mode="" :key="index" v-for="(msg,index) in i.images" :data-src="msg" @tap="previewImage"></image>
 					</view>
 				</view>
 			</view>
+			<empty v-if="item.leaveMessage.length == 0"></empty>
 		</view>
 		<view class="btn-save" @click="apply">回复</view>
 	</view>
@@ -41,22 +42,43 @@
 
 <script>
 	const tools = require('../../common/tools.js');
+	import empty from '../empty/empty.vue';
 	export default {
+		components:{
+			empty
+		},
 		data() {
 			return {
-				item:{}
+				item:{},
+				imageList:[]
 			}
 		},
 		onLoad(options) {
-			console.log(options.id)
 			if (options.id) {
 				this.id = options.id;
-				this.getDetail();
 			}
 		},
+		onShow() {
+			this.getDetail();
+		},
 		methods: {
+            previewImage: function(e) {
+				console.log(e.target.dataset.src)
+                var current = e.target.dataset.src
+                uni.previewImage({
+                    current: current,
+                    urls: this.imageList
+                })
+            },
 			apply(){
-				// tools.jumpTo("")
+				let that = this;
+				tools.request("/api/index/judgeIsUpdateUserInfo.json", {},1,true).then(function(data) {
+					if(data.isFill == 1){
+						tools.jumpTo("/pages/leavemsg/leavemsg?id="+that.id+"&apply=true");
+					}else{
+						tools.toastJump("未填写个人信息", "/pages/personmsg/personmsg");
+					}
+				})
 			},
 			getDetail(){
 				let that = this;
@@ -67,7 +89,17 @@
 					
 				}
 				tools.request("/api/my/advisoryDetail.json", params,1,true).then(function(data) {
+					data.images = data.images.split(';');
+					for(let i in data.leaveMessage){
+						data.leaveMessage[i].images = data.leaveMessage[i].images.split(';');
+						for(let j in data.leaveMessage[i].images){
+							that.imageList.push(data.leaveMessage[i].images[j])
+						}
+					}
 					that.item = data;
+					for(let i in data.images){
+						that.imageList.push(data.images[i])
+					}
 				})
 			}
 		}

@@ -9,7 +9,7 @@
 					<view class="white-arrow" v-if="item.isMember != 1"></view>
 				</view>
 			</view>
-			<view class="my-order">
+			<!-- <view class="my-order">
 				<view class="tit">
 					我的订单
 					<view class="item-more" @click="allorder(1)">查看全部订单 ></view>
@@ -32,7 +32,7 @@
 						待收货
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 
 		<view class="my-list">
@@ -40,12 +40,12 @@
 				<view class="item-l">个人信息</view>
 				<view class="item-r"><image src="../../static/a2_icon_more_g.png" mode=""></image></view>
 			</view>
-			<view class="item" @click="address">
+			<!-- <view class="item" @click="address">
 				<view class="item-l">我的收货地址</view>
 				<view class="item-r">
 					<image src="../../static/a2_icon_more_g.png" mode=""></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="item" @click="messagelist">
 				<view class="item-l">留言咨询列表</view>
 				<view class="item-r">
@@ -205,7 +205,8 @@
 	}
 
 	.my-list {
-		margin-top: 190upx;
+		// margin-top: 190upx;
+		margin-top: 35upx;
 		padding: 0 54upx;
 
 		.item {

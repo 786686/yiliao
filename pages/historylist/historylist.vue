@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
 		<view class="message-list">
-			<view class="item" v-for="item in items">
+			<view class="item" v-for="(item,index) in items" :key="index">
 				<view class="item-top">{{item.createTimeString}}</view>
 				<view class="item-in">
-					<view class="item-l">病情描述</view>
+					<view class="item-l">所患病情</view>
 					<view class="item-r">{{item.disease}}</view>
 				</view>
 				<view class="item-in">
@@ -15,18 +15,18 @@
 					<view class="item-l">患病类型</view>
 					<view class="item-r">{{item.illness}}</view>
 				</view>
-				<view class="item-in">
-					<view class="item-l">处方描述</view>
+				<!-- <view class="item-in">
+					<view class="item-l">所患病情</view>
 					<view class="item-r">{{item.doctorDescription}}</view>
-				</view>
+				</view> -->
 				<view class="btns">
-					<!-- <view class="btn" @click="detail(item.id)">
+					<view class="btn" @click="detail(item.id)">
 						查看
-					</view> -->
-					<!-- <view class="btn" @click="edit(item.id)">
+					</view>
+					<view class="btn" @click="edit(item.id)" v-if="item.type != 2">
 						编辑
-					</view> -->
-					<view class="btn btn-white" @click="remove(item.id)">
+					</view>
+					<view class="btn btn-white" @click="remove(item.id,index)">
 						删除
 					</view>
 				</view>
@@ -49,25 +49,28 @@
 			}
 		},
 		onLoad() {
+		},
+		onShow() {
 			this.getList();
 		},
 		
 		methods: {
 			detail(id){
-				tools.jumpTo("/pages/messagedetail/messagedetail?id="+id)
+				tools.jumpTo("/pages/historydetail/historydetail?id="+id)
 			},
 			edit(id){
 				tools.jumpTo("/pages/historycheck/historycheck?id="+id)
 			},
 			
-			remove(id){
+			remove(id,index){
 				let that = this;
 				let params = {
 					id:id
 				}
 				tools.request("/api/my/delTreatmentRecord.json", params,1,true).then(function(data) {
 					tools.toast("删除成功");
-					that.getList();
+					// that.getList();
+					that.items.splice(index,1);
 				})
 			},
 			getList(){
@@ -77,11 +80,10 @@
 					pageNumber:1
 				}
 				tools.request("/api/my/treatmentRecordList.json", params,1,true).then(function(data) {
-					
 					that.items = data.treatmentRecordList;
+					
 				})
 			}
-		
 		}
 	}
 </script>

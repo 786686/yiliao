@@ -17,7 +17,7 @@
 						<view class="item-status">
 							<!-- <image src="../../static/a4_ic_love.png"></image> -->
 							<image :src="item.ifCollection==1?'../../static/a4_ic_love_g.png':'../../static/a4_ic_love.png'" mode="" class="icon-collect"
-							 @click="collect(item.id,1,item.ifCollection,index)"></image>
+							 @click.stop="collect(item.id,1,item.ifCollection,index)"></image>
 							{{item.ifCollection == 1?'已':''}}收藏
 						</view>
 					</view>
@@ -85,19 +85,20 @@
 			collect(id,type,status,index) {
 				let that = this;
 				let params = {
-					typeId: this.id,
+					typeId: id,
 					type: type,
 					status: status == 1 ? 2 : 1
 				};
 				tools.request("/api/index/isCollection.json", params, 1, true).then(function(data) {
 					if (status == 1) {
 						tools.toast("已取消收藏");
+						that.doctorList.splice(index,1);
 					} else {
 						tools.toast("已收藏");
 					}
-					if(type == 1){
-						that.doctorList[index].ifCollection = that.doctorList[index].ifCollection == 1 ? 2 : 1;
-					}
+					// if(type == 1){
+					// 	that.doctorList[index].ifCollection = that.doctorList[index].ifCollection == 1 ? 2 : 1;
+					// }
 				})
 			},
 			doctor(id) {

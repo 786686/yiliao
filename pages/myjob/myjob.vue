@@ -79,12 +79,6 @@
 					pageNumber:1
 				}
 				tools.request("/api/job/myPositionList.json", params,1,true).then(function(data) {
-					console.log(data)
-					
-					// for(let i in data.advisoryDTOList){
-					// 	data.advisoryDTOList[i].images = data.advisoryDTOList[i].images.split(';');
-					// }
-					
 					that.items = data.myPositionList;
 				})
 			}
