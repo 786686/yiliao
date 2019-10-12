@@ -155,6 +155,19 @@ let tools = {
 							url: '/pages/login/login',
 						})
 					}, 2000);
+				} else if (res.data.status ==5000023) {
+					uni.showModal({
+						content: "你还未完善简历，为了能最大程度匹配上您的需求，请完善简历！",
+						confirmText: "去完善简历",
+						cancelText: "我再看看",
+						cancelColor:"#999",
+						confirmColor:"#007AFF",
+						success: function(res) {
+							if (res.confirm) {
+								tools.jumpTo("/pages/myjob/myjob");
+							}
+						}
+					})
 				} else {
 					if (errCallback) {
 						uni.showToast({

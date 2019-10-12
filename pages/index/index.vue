@@ -76,7 +76,7 @@
 		},
 		onLoad() {
 			this.getBanner();
-			this.getRecommendList();
+			// this.getRecommendList();
 			this.getHealthList();
 		},
 		methods: {

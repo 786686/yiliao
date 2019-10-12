@@ -8,9 +8,12 @@
 			<view class="item" :class="{cur: type == 2}" @click="nav(2)">最新</view>
 		</view>
 		<view class="job-list">
-			<view class="item" v-for="item in items" @click="detail(item.id)">
+			<view class="item" v-for="(item,index) in items" @click="detail(item.id,index)" :key="index">
 				<view class="item-top">
 					<view class="item-name">{{item.positionName}}</view>
+					<view class="item-people">
+						已有{{item.deliveryNum}}人投简历 
+					</view>
 					<view class="item-pay">{{item.minPrice}}k-{{item.maxPrice}}k</view>
 				</view>
 				<view class="item-tags">
@@ -20,6 +23,11 @@
 				</view>
 				<view class="item-company">{{item.company}}</view>
 				<view class="item-phone">联系电话 {{item.telephone}}</view>
+				<view class="btns">
+					<view class="btn" @click="tou(item.id)">
+						投简历
+					</view>
+				</view>
 			</view>
 			<empty v-if="items.length == 0"></empty>
 		</view>
@@ -41,9 +49,44 @@
 			}
 		},
 		onLoad() {
+		},
+		onShow(){
 			this.getList()
 		},
 		methods: {
+			tou(id,index){
+				if(tools.isLogin()){
+					let that = this;
+					let params = {
+						positionId:id
+					}
+					tools.request("/api/job/submitResume.json", params,1,true).then(function(data) {
+						that.items[index].deliveryNum++;
+						uni.showModal({
+							content: "简历已投放成功，请保持手机通信流畅！",
+							confirmText: "确定",
+							cancelText: "取消",
+							cancelColor:"#999",
+							confirmColor:"#007AFF",
+							success: function(res) {
+								if (res.confirm) {
+									// tools.jumpTo("/pages/login/login");
+								}
+							}
+						})
+					})
+				}else{
+					uni.showModal({
+						content: "需要登录才能投简历",
+						confirmText: "去登录",
+						success: function(res) {
+							if (res.confirm) {
+								tools.jumpTo("/pages/login/login");
+							}
+						}
+					})
+				}
+			},
 			detail(id){
 				tools.jumpTo("/pages/jobdetail/jobdetail?id="+id)
 			},
@@ -93,4 +136,6 @@
 	}
 </script>
 
-	
+<style lang="scss">
+ .btns{margin-top: 15upx;}
+</style>

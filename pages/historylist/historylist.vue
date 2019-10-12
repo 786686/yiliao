@@ -69,7 +69,6 @@
 				}
 				tools.request("/api/my/delTreatmentRecord.json", params,1,true).then(function(data) {
 					tools.toast("删除成功");
-					// that.getList();
 					that.items.splice(index,1);
 				})
 			},

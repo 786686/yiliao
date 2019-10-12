@@ -9,7 +9,12 @@
 		},{
 			"path": "pages/myjob/myjob",
 			"style": {
-				"navigationBarTitleText": "我的招聘列表"
+				"navigationBarTitleText": "个人简历"
+			}
+		},{
+			"path": "pages/myjoblist/myjoblist",
+			"style": {
+				"navigationBarTitleText": "我发布的招聘"
 			}
 		},{
 			"path": "pages/login/login",

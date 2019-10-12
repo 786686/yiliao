@@ -72,7 +72,7 @@
 			getDetail() {
 				let that = this;
 				let params = {
-					id: 1,//that.id,
+					id: that.id,
 					pageSize:10,
 					pageNumber:1
 				};
@@ -102,7 +102,7 @@
 				height: 160upx;
 				margin-right: 30upx;
 			}
-			color:#333;
+			color:#fff;
 			font-size: 26upx;
 
 			.item-in {

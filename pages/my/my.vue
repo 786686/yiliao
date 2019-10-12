@@ -40,31 +40,35 @@
 				<view class="item-l">个人信息</view>
 				<view class="item-r"><image src="../../static/a2_icon_more_g.png" mode=""></image></view>
 			</view>
+			<view class="item" @click="job">
+				<view class="item-l">我的简历</view>
+				<view class="item-r"><image src="../../static/a2_icon_more_g.png" mode=""></image></view>
+			</view>
 			<!-- <view class="item" @click="address">
 				<view class="item-l">我的收货地址</view>
 				<view class="item-r">
 					<image src="../../static/a2_icon_more_g.png" mode=""></image>
 				</view>
 			</view> -->
-			<view class="item" @click="messagelist">
-				<view class="item-l">留言咨询列表</view>
-				<view class="item-r">
-					<image src="../../static/a2_icon_more_g.png" mode=""></image>
-				</view>
-			</view>
 			<view class="item" @click="historylist">
 				<view class="item-l">历史就诊记录</view>
 				<view class="item-r">
 					<image src="../../static/a2_icon_more_g.png" mode=""></image>
 				</view>
 			</view>
-			<view class="item" @click="historycheck">
-				<view class="item-l">新增病例</view>
+			<view class="item" @click="messagelist">
+				<view class="item-l">留言咨询列表</view>
 				<view class="item-r">
 					<image src="../../static/a2_icon_more_g.png" mode=""></image>
 				</view>
 			</view>
-			<view class="item" @click="myjob">
+			<!-- <view class="item" @click="historycheck">
+				<view class="item-l">新增病例</view>
+				<view class="item-r">
+					<image src="../../static/a2_icon_more_g.png" mode=""></image>
+				</view>
+			</view> -->
+			<view class="item" @click="joblist">
 				<view class="item-l">我发布的招聘</view>
 				<view class="item-r">
 					<image src="../../static/a2_icon_more_g.png" mode=""></image>
@@ -132,6 +136,10 @@
 				if(tools.toLogin()){return;}
 				tools.jumpTo("/pages/personmsg/personmsg");
 			},
+			job(){
+				if(tools.toLogin()){return;}
+				tools.jumpTo("/pages/myjob/myjob?edit=true");
+			},
 			feedback(){
 				if(tools.toLogin()){return;}
 				tools.jumpTo("/pages/feedback/feedback");
@@ -146,9 +154,9 @@
 				if(tools.toLogin()){return;}
 				tools.jumpTo("/pages/collect/collect");
 			},
-			myjob(){
+			joblist(){
 				if(tools.toLogin()){return;}
-				tools.jumpTo("/pages/myjob/myjob");
+				tools.jumpTo("/pages/myjoblist/myjoblist");
 			},
 			historycheck(){
 				if(tools.toLogin()){return;}

@@ -637,6 +637,11 @@ text :not(view) {
 			align-items: center;
 			border-bottom: 1px solid #E6E6E6;
 			font-size: 30upx;
+			.item-time{
+				color: #333;
+			}
+			.item-people{
+			color: #666;}
 		}
 		.item-in{
 			padding: 30upx 0;
