@@ -5,7 +5,7 @@
 				<image :src="item.avatar" mode="" class="icon-avatar"></image>
 				<view class="item-in">
 					<view class="item-name">
-						{{item.name}}<image :src="item.sexString=='男'?'../../static/a5_ic_m.png':''" mode=""></image>
+						{{item.name}}<image :src="item.sexString=='男'?'../../static/a5_ic_m.png':'../../static/a5_ic_n.png'" mode=""></image>
 					</view>
 					<view class="item-company">
 						{{item.hospital}}

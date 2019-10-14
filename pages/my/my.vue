@@ -4,10 +4,10 @@
 			<view class="my-top-in">
 				<image :src="avatar" mode="" class="icon-avatar"></image>
 				<view class="item-name" @click="login">{{name}}</view>
-				<view class="item-member" @click="member">
+				<!-- <view class="item-member" @click="member">
 					{{item.isMember == 1?'':'开通'}}会员
 					<view class="white-arrow" v-if="item.isMember != 1"></view>
-				</view>
+				</view> -->
 			</view>
 			<!-- <view class="my-order">
 				<view class="tit">

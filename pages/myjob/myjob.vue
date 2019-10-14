@@ -3,7 +3,7 @@
 		<view class="inps">
 			<view class="item">
 				<view class="item-name">称呼</view>
-				<input type="text" v-model="company" placeholder="请输入您的称呼">
+				<input type="text" v-model="name" placeholder="请输入您的称呼">
 			</view>
 			<view class="item">
 				<view class="item-name">性别</view>
@@ -45,6 +45,7 @@
 	export default {
 		data() {
 			return {
+				id:"",
 				name:"",
 				price:"",
 				education:"初中",
@@ -68,21 +69,23 @@
 				let that = this;
 				let params = {}
 				tools.request("/api/job/findResume.json", params,1,true).then(function(data) {
-					that.name = data.findResumeDTO.name;
-					that.id = data.findResumeDTO.id;
-					that.price = data.findResumeDTO.price;
-					that.skill = data.findResumeDTO.skill;
-					that.year = data.findResumeDTO.year;
-					that.telephone = data.findResumeDTO.telephone;
-					
-					if(that.eduList.indexOf(data.findResumeDTO.education) != -1){
-						that.eduIndex = that.eduList.indexOf(data.findResumeDTO.education);
+					if(data.findResumeDTO.id){
+						that.name = data.findResumeDTO.name;
+						that.id = data.findResumeDTO.id;
+						that.price = data.findResumeDTO.price;
+						that.skill = data.findResumeDTO.skill;
+						that.year = data.findResumeDTO.year;
+						that.telephone = data.findResumeDTO.telephone;
+						
+						if(that.eduList.indexOf(data.findResumeDTO.education) != -1){
+							that.eduIndex = that.eduList.indexOf(data.findResumeDTO.education);
+						}
+						
+						that.sexIndex = parseInt(data.findResumeDTO.sex) - 1;
+						that.education = data.findResumeDTO.education;
+						that.sex = data.findResumeDTO.sex;
 					}
-					
-					that.sexIndex = parseInt(data.findResumeDTO.sex) - 1;
-					that.education = data.findResumeDTO.education;
-					that.sex = data.findResumeDTO.sex;
-					
+					console.log(that.id)
 				})
 			},
 			bindSexChange(event){
@@ -94,6 +97,8 @@
 				this.education = this.eduList[this.eduIndex];
 			},
 			submit(){	
+				console.log(this.id)
+				console.log(typeof this.id)
 				if(tools.isEmpty(this.name,"请输入您的称呼")){return;}
 				if(tools.isEmpty(this.price,"请输入期望薪资范围")){return;}
 				if(tools.isEmpty(this.year,"请输入工作年限")){return;}
@@ -110,7 +115,7 @@
 					sex:this.sex
 				}
 				if(that.id != ""){
-					params.id = params.id;
+					params.id = that.id;
 					tools.request("/api/job/editResume.json", params,1,true).then(function(data) {
 						tools.toastJumpTab("编辑成功","/pages/my/my");
 					})

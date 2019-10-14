@@ -254,7 +254,13 @@
 			"style": {
 				"navigationBarTitleText": "加盟信息"
 			}
-		}
+		},
+		{
+			"path": "pages/intentionjob/intentionjob",
+			"style": {
+				"navigationBarTitleText": "意向简历"
+			}
+		}		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

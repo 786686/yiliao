@@ -155,6 +155,8 @@ let tools = {
 							url: '/pages/login/login',
 						})
 					}, 2000);
+				} else if (res.data.status ==5000022) {
+					callback({});
 				} else if (res.data.status ==5000023) {
 					uni.showModal({
 						content: "你还未完善简历，为了能最大程度匹配上您的需求，请完善简历！",

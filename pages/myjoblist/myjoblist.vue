@@ -4,7 +4,7 @@
 			<view class="item" v-for="(item,index) in items" :key="index">
 				<view class="item-top">
 					<view class="item-time">{{item.createTime}}</view>
-				<view class="item-people">已有{{item.deliveryNum}}人投简历</view>
+					<view class="item-people" @click="tou(item.id)">已有{{item.deliveryNum}}人投简历</view>
 				</view>
 				<view class="item-in">
 					<view class="item-l">公司名称</view>
@@ -62,9 +62,14 @@
 			}
 		},
 		onLoad() {
+		},
+		onShow(){
 			this.getList()
 		},
 		methods: {
+			tou(id){
+				tools.jumpTo("/pages/intentionjob/intentionjob?id="+id)
+			},
 			detail(id){
 				tools.jumpTo("/pages/jobdetail/jobdetail?id="+id)
 			},

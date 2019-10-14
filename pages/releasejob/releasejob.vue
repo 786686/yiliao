@@ -62,6 +62,7 @@
 	export default {
 		data() {
 			return {
+				id:"",
 				levelId:"",//职位名称主键id
 				maxPrice:"",
 				minPrice:"",
@@ -81,14 +82,52 @@
 				eduList:['初中','高中','中技','中专','大专','本科','硕士','MBA','EMBA','博士','其他']
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			this.getList();
+			if(options.id){
+				this.id = options.id;
+				this.getDetail();
+			}
 		},
 		methods: {
-			getList(){
+			getDetail(){
+				let that = this;
+				let params = { 
+					id:this.id
+				};
+				tools.request("/api/job/positionDetails.json", params,1,true).then(function(data) {
+					
+					that.address = data.address
+					that.company = data.company
+					that.content = data.content;
+					that.education = data.education;
+					that.maxPrice = data.maxPrice;
+					that.minPrice = data.minPrice;
+					that.telephone = data.telephone;
+					that.year = data.year;
+					
+					if(that.jobNameList.indexOf(data.positionName) != -1){
+						that.index = that.jobNameList.indexOf(data.positionName);
+					}
+					that.sexIndex = parseInt(data.sex) - 1;
+					that.sex = data.sex;
+					
+					if(that.eduList.indexOf(data.education) != -1){
+						that.eduIndex = that.eduList.indexOf(data.education);
+					}
+					
+					that.jobList.map( (item,i) => {
+						if(i == that.index){
+							that.levelId = that.jobList[i].id
+						}
+					})
+					
+				})
+			},
+			async getList(){
 				let that = this;
 				let params = {}
-				tools.request("/api/job/showPositionLevel.json", params,1,true).then(function(data) {
+				await tools.request("/api/job/showPositionLevel.json", params,1,true).then(function(data) {
 					that.jobList = data.positionLevelList;
 					
 					that.jobList.map( item => {
@@ -114,13 +153,15 @@
 				this.education = this.eduList[this.eduIndex];
 			},
 			submit(){	
-				if(tools.isEmpty(this.company,"请输入公司名称")){return;}
-				if(tools.isEmpty(this.minPrice,"请输入最低薪酬")){return;}
-				if(tools.isEmpty(this.maxPrice,"请输入最高薪酬")){return;}
-				if(tools.isEmpty(this.year,"请输入工作年限")){return;}
-				if(tools.isEmpty(this.telephone,"请输入联系电话")){return;}
-				if(tools.isEmpty(this.address,"请输入工作地址")){return;}
-				if(tools.isEmpty(this.content,"请输入工作内容")){return;}
+				console.log(this.minPrice)
+				console.log(typeof this.minPrice)
+				if(tools.isEmpty(this.company.toString(),"请输入公司名称")){return;}
+				if(tools.isEmpty(this.minPrice.toString(),"请输入最低薪酬")){return;}
+				if(tools.isEmpty(this.maxPrice.toString(),"请输入最高薪酬")){return;}
+				if(tools.isEmpty(this.year.toString(),"请输入工作年限")){return;}
+				if(tools.isEmpty(this.telephone.toString(),"请输入联系电话")){return;}
+				if(tools.isEmpty(this.address.toString(),"请输入工作地址")){return;}
+				if(tools.isEmpty(this.content.toString(),"请输入工作内容")){return;}
 				let that = this;
 				let params = {
 					levelId:this.levelId,//职位名称主键id
@@ -133,6 +174,13 @@
 					content:this.content,
 					company:this.company,
 					sex:this.sex
+				}
+				if(that.id != ""){
+					params.id = that.id;
+					tools.request("/api/job/editPosition.json", params,1,true).then(function(data) {
+						tools.toastJumpBack("编辑成功","/pages/myjoblist/myjoblist");
+					})
+					return;
 				}
 				tools.request("/api/job/addPosition.json", params,1,true).then(function(data) {
 					tools.toastJumpTab("发布招聘成功","/pages/joblist/joblist");

@@ -24,7 +24,7 @@
 				<view class="item-company">{{item.company}}</view>
 				<view class="item-phone">联系电话 {{item.telephone}}</view>
 				<view class="btns">
-					<view class="btn" @click="tou(item.id)">
+					<view class="btn" @click.stop="tou(item.id)">
 						投简历
 					</view>
 				</view>
