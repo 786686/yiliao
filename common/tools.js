@@ -121,6 +121,7 @@ let tools = {
 			method: request.method,
 			dataType: request.dataType,
 			success: function(res) {
+				console.log(res.data.status )
 				if (res.data.status == 2000000) {
 					let data = null;
 					// request.isRes && (data = res.data);
@@ -129,7 +130,7 @@ let tools = {
 					callback && callback(data);
 				} else if (res.data.status == 5000003) {
 					tools.toLogin();
-					tools.toastJump("个人信息没填写", "/pages/personmsg/personmsg");
+					tools.toastJump("个人信息", "/pages/personmsg/personmsg");
 				} else if (res.data.status == -3) {
 					if (requestTimes % 5 !== 0) {
 						that.login().then(() => {
@@ -158,9 +159,10 @@ let tools = {
 				} else if (res.data.status ==5000022) {
 					callback({});
 				} else if (res.data.status ==5000023) {
+					console.log(12)
 					uni.showModal({
 						content: "你还未完善简历，为了能最大程度匹配上您的需求，请完善简历！",
-						confirmText: "去完善简历",
+						confirmText: "完善简历",
 						cancelText: "我再看看",
 						cancelColor:"#999",
 						confirmColor:"#007AFF",
@@ -174,7 +176,7 @@ let tools = {
 					if (errCallback) {
 						uni.showToast({
 							title: res.data.message,
-							icon: 'loading'
+							icon: 'none'
 						});
 						errCallback(res)
 					}

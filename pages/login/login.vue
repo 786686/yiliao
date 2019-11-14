@@ -93,9 +93,12 @@
 						let params = {
 							code: res.code
 						}
+						// console.log(res.code+"=================")
+						// return;
 						tools.request("/api/login/authLogin.json", params).then(function(data) {
 							uni.setStorageSync('sessionId', data.sessionId);
-							tools.toastJump("登录成功","/pages/bindphone/bindphone");
+							// tools.toastJump("登录成功","/pages/bindphone/bindphone");
+							tools.toastJumpTab("登录成功","/pages/index/index");
 						})
 
 					},

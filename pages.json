@@ -260,6 +260,12 @@
 			"style": {
 				"navigationBarTitleText": "意向简历"
 			}
+		},
+		{
+			"path": "pages/recommend/recommend",
+			"style": {
+				"navigationBarTitleText": "健康推荐"
+			}
 		}		
 	],
 	"globalStyle": {
@@ -275,7 +281,7 @@
 		"backgroundColor": "#fff",
 		"list": [{
 				"pagePath": "pages/index/index",
-				"iconPath": "static/tab_ic_01_s.png",
+				"iconPath": "static/tab_ic_01.png",
 				"selectedIconPath": "static/tab_ic_01_s.png",
 				"text": "首页"
 			},{

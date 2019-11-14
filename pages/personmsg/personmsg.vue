@@ -3,11 +3,11 @@
 		<view class="set-list">
 			<view class="item">
 				<view class="item-l">姓名</view>
-				<view class="item-r"><input type="text" v-model="name" placeholder="请输入姓名"></view>
+				<view class="item-r"><input type="text" v-model="name" placeholder="请输入姓名" :disabled="nameAbled"></view>
 			</view>
 			<view class="item">
 				<view class="item-l">身份证号</view>
-				<view class="item-r"><input type="idcard" v-model="idNumber" placeholder="请输入身份证号"></view>
+				<view class="item-r"><input type="idcard" v-model="idNumber" placeholder="请输入身份证号" :disabled="cardAbled"></view>
 			</view>
 			<view class="item">
 				<view class="item-l">性别</view>
@@ -63,6 +63,8 @@
 		data() {
 			const birth = this.getDate();
 			return {
+				nameAbled:false,
+				cardAbled:false,
 				birth,
 				name:"",
 				idNumber:"",
@@ -83,6 +85,12 @@ this.getDetail()
 				}
 				tools.request("/api/my/getMyInfo.json", params,1,true).then(function(data) {
 					that.item = data;
+					if(that.item.name != "" && that.item.name != null){
+						that.nameAbled = true;
+					}
+					if(that.item.idNumber != "" && that.item.idNumber != null){
+						that.cardAbled = true;
+					}
 					that.name =  that.item.name;
 					that.sex =  that.item.sex == 2?2:1;
 					if(that.item.birth == ""){
@@ -119,23 +127,33 @@ this.getDetail()
 			},
 			submit(){
 				
+				let that = this;
 				if(tools.isEmpty(this.name,"请输入姓名")){return;}
 				if(tools.isEmpty(this.idNumber,"请输入身份证号")){return;}
-				if(tools.isEmpty(this.contactAddress,"请输入联系地址")){return;}
-				
-				let that = this;
+				// /api/common/identityCheck.json?idCard=34&name=43
 				let params = {
 					name: this.name,
-					sex: this.sex,
-					birth: this.birth,
-					contactAddress: this.contactAddress,
-					idNumber:this.idNumber,
-					avatar: uni.getStorageSync('avatarUrl')
+					idCard:this.idNumber
 				}
-				
-				tools.request("/api/index/updateUserInfo.json", params,1,true).then(function(data) {
-					tools.toastJumpTab("登记成功","/pages/my/my");
+				if(tools.isEmpty(that.contactAddress,"请输入联系地址")){return;}
+				// 检验身份证
+				tools.request("/api/common/identityCheck.json", params,1,true).then(function(data) {
+					
+					// 真正的提交
+					let params = {
+						name: that.name,
+						sex: that.sex,
+						birth: that.birth,
+						contactAddress: that.contactAddress,
+						idNumber:that.idNumber,
+						avatar: uni.getStorageSync('avatarUrl')
+					}
+					
+					tools.request("/api/index/updateUserInfo.json", params,1,true).then(function(res) {
+						tools.toastJumpTab("登记成功","/pages/my/my");
+					})
 				})
+				
 			}
 		}
 	}

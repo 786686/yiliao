@@ -54,6 +54,7 @@
 			return {
 				sourceType: ['拍照', '相册', '拍照或相册'],
 				sizeTypeIndex: 2,
+				sourceTypeIndex: 2,
 				countIndex: 8,
 				imageList: [],
                 count: [1, 2, 3, 4, 5, 6, 7, 8, 9],

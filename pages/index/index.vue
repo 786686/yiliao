@@ -58,7 +58,6 @@
 
 <script>
 	const tools = require('../../common/tools.js');
-	const server = require('../../common/server.js');
     import search from '../headsearch/headsearch.vue';	
 	import empty from '../empty/empty.vue';
 	export default {
@@ -71,13 +70,32 @@
 				bannerList:[],
 				recommendList: [],
 				healthList:[],
-				server:server.domain
+				
+				timer: null,
+				pageNumber: 1,
+				hasData:true
 			}
 		},
 		onLoad() {
 			this.getBanner();
 			// this.getRecommendList();
 			this.getHealthList();
+		},
+		
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			this.getHealthList();
+		},
+		onReachBottom: function() {
+			//触底的时候请求数据，即为上拉加载更多
+			//为了更加清楚的看到效果，添加了定时器
+			if (this.timer != null) {
+				clearTimeout(this.timer);
+			}
+			let that = this;
+			this.timer = setTimeout(function() {
+				that.getHealthList();
+			}, 1000);
 		},
 		methods: {
 			check(){
@@ -117,13 +135,24 @@
 			},
 			getHealthList(){
 				let that = this;
+				if(!that.hasData){
+					return false;
+				}
+				uni.showNavigationBarLoading();
 				let params = {
 					pageSize: 10,
-					pageNumber:1
+					pageNumber:this.pageNumber
 				}
+				uni.showNavigationBarLoading();
 				tools.request("/api/index/articleRecommend.json", params).then(function(data) {
-					console.log(data)
-					that.healthList = data.articleDTOList;
+					if (data.articleDTOList.length == 0) {//没有数据
+						that.hasData= false;
+						uni.hideNavigationBarLoading();//关闭加载动画
+						return;
+					}
+					that.healthList = that.healthList.concat(data.articleDTOList);
+					that.pageNumber++;//每触底一次 page +1
+					uni.hideNavigationBarLoading();//关闭加载动画
 				})
 			},
 			recommendDetail(id){

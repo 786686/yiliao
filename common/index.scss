@@ -397,13 +397,13 @@ text :not(view) {
 			.my-top{position: relative;
 				
 				height: 400upx;
-				padding: 70upx 40upx 0 45upx;
+				padding: 65upx 40upx 0 40upx;
 				.my-top-in{
 					display: flex;
 					align-items: center;
 				}
 				.icon-avatar{
-					width: 120upx; height: 120upx; margin-right: 30upx; border-radius: 50%;
+					width: 128upx; height: 128upx; margin-right: 30upx; border-radius: 50%;
 				}
 				
 				.item-name{
@@ -426,47 +426,71 @@ text :not(view) {
 					.icon-arrow{ margin-left: 10upx; width: 14upx; height: 24upx;}
 					.white-arrow{ margin-left: 6upx;width: 16upx; height: 16upx; border-right: 1px solid #fff;border-bottom: 1px solid #fff; transform: rotate(-45deg);}
 				}
-				
-				.my-order{
-					position: absolute;
-					top: 250upx; left: 0; right: 0; margin: 35upx;
-					background-color: #fff;
-					box-shadow:7upx 4upx 42upx 6upx rgba(97,80,254,0.22);
-					border-radius:20upx;
-					padding: 0 30upx;
-					.tit{
-						padding: 50upx 0 28upx; border-bottom: 1px solid #E6E6E6; display: flex;
-						align-items: center; justify-content: space-between;
-						font-size: 30upx; font-weight: bold;
-						.item-more{ font-size: 24upx; color: #999; font-weight: 400;}
-					}
-					.status-list{
-						display: flex;
-					}	
-					.item{display: flex;
-		flex-direction: column;
-						flex: 1;
-						padding: 35upx 0 55upx;
-						text-align: center;font-size: 24upx; color: #999;
-						image{width: 64upx; height: 64upx; disply: block; margin: 0 auto 15upx;
-						}
-					}
-				}
 			}
 			
 			
-			.nav-join{ align-items: flex-end;
+			.nav-join{ 
+				margin-top: 70upx;
+				align-items: flex-end;
 				display: flex;  padding: 0 40upx 40upx;
-				.item{ font-size: 30upx; color: #666;  font-weight: bold;
+				.item{ 
+					// height: 100upx;
+					font-size: 30upx; color: #666;  font-weight: bold;
 					&.cur{ font-weight: bolder; position: relative;  font-size: 44upx; color: #000;
 						&:after{ content:"";
 							position: absolute; background-color: #604EFF; bottom:0; left: 0; right: 0; height: 6upx; border-radius: 3upx; opacity: .8;
 						}
 					}
 					margin-right: 38upx;
+					&:after{margin-right: 0;}
 				}
 			}
-			
+			.set-module{
+				margin: 35upx;
+				background-color: #fff;
+				// box-shadow:7upx 4upx 42upx 6upx rgba(97,80,254,0.22);
+				// box-shadow:7upx 4upx 42upx 6upx rgba(97,80,254,0.22);
+				
+				box-shadow:7rpx 4rpx 20rpx 6rpx rgba(200, 200,200,0.5);
+				border-radius:20upx;
+				padding: 0 30upx;
+				.status-list{
+					display: flex;
+				}	
+				.item{
+					display: flex;
+					flex-direction: column;
+					flex: 1;
+					padding: 35upx 0 35upx;
+					text-align: center;font-size: 26upx; color: #333;
+				}
+			}
+			.my-order{
+						position: absolute;
+						top: 250upx; left: 0; right: 0; 
+						margin: 35upx;
+						background-color: #fff;
+						box-shadow:7upx 4upx 42upx 6upx rgba(97,80,254,0.22);
+						border-radius:20upx;
+						padding: 0 30upx;
+						.tit{
+							padding: 50upx 0 28upx; border-bottom: 1px solid #E6E6E6; display: flex;
+							align-items: center; justify-content: space-between;
+							font-size: 30upx; font-weight: bold;
+							.item-more{ font-size: 24upx; color: #999; font-weight: 400;}
+						}
+						.status-list{
+							display: flex;
+						}	
+						.item{display: flex;
+			flex-direction: column;
+							flex: 1;
+							padding: 35upx 0 55upx;
+							text-align: center;font-size: 24upx; color: #999;
+							image{width: 64upx; height: 64upx; disply: block; margin: 0 auto 15upx;
+							}
+						}
+					}
 .confirm-msg{
 	box-shadow:-7upx 11upx 34upx 6upx rgba(210,210,210,0.4);
 	border-radius:20upx;

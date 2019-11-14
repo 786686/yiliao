@@ -49,7 +49,6 @@
 
 <script>
 	const tools = require('../../common/tools.js');
-	const server = require('../../common/server.js');
 	import empty from '../empty/empty.vue';
 	export default {
 		components:{
@@ -58,13 +57,32 @@
 		data() {
 			return {
 				items:[],
-				server:server.domain
+				
+				timer: null,
+				pageNumber: 1,
+				hasData:true
 			}
 		},
 		onLoad() {
 		},
 		onShow(){
 			this.getList()
+		},
+		
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			this.getList();
+		},
+		onReachBottom: function() {
+			//触底的时候请求数据，即为上拉加载更多
+			//为了更加清楚的看到效果，添加了定时器
+			if (this.timer != null) {
+				clearTimeout(this.timer);
+			}
+			let that = this;
+			this.timer = setTimeout(function() {
+				that.getList();
+			}, 1000);
 		},
 		methods: {
 			tou(id){
@@ -88,12 +106,25 @@
 			},
 			getList(){
 				let that = this;
+				
+				if(!that.hasData){
+					return false;
+				}
+				uni.showNavigationBarLoading();
 				let params = {
 					pageSize: 10,
-					pageNumber:1
+					pageNumber:this.pageNumber
 				}
 				tools.request("/api/job/myPositionList.json", params,1,true).then(function(data) {
-					that.items = data.myPositionList;
+					
+					if (data.myPositionList.length == 0) {//没有数据
+						that.hasData= false;
+						uni.hideNavigationBarLoading();//关闭加载动画
+						return;
+					}
+					that.items = that.items.concat(data.myPositionList);
+					that.pageNumber++;//每触底一次 page +1
+					uni.hideNavigationBarLoading();//关闭加载动画
 				})
 			}
 

@@ -45,7 +45,11 @@
 		},
 		data() {
 			return {
-				items:[]
+				items:[],
+				
+				timer: null,
+				pageNumber: 1,
+				hasData: true
 			}
 		},
 		onLoad() {
@@ -54,6 +58,21 @@
 			this.getList();
 		},
 		
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			this.getList();
+		},
+		onReachBottom: function() {
+			//触底的时候请求数据，即为上拉加载更多
+			//为了更加清楚的看到效果，添加了定时器
+			if (this.timer != null) {
+				clearTimeout(this.timer);
+			}
+			let that = this;
+			this.timer = setTimeout(function() {
+				that.getList();
+			}, 1000);
+		},
 		methods: {
 			detail(id){
 				tools.jumpTo("/pages/historydetail/historydetail?id="+id)
@@ -74,13 +93,23 @@
 			},
 			getList(){
 				let that = this;
+				if(!that.hasData){
+					return false;
+				}
+				uni.showNavigationBarLoading();
 				let params = {
 					pageSize: 10,
-					pageNumber:1
+					pageNumber:this.pageNumber
 				}
 				tools.request("/api/my/treatmentRecordList.json", params,1,true).then(function(data) {
-					that.items = data.treatmentRecordList;
-					
+					if (data.treatmentRecordList.length == 0) { //没有数据
+						that.hasData = false;
+						uni.hideNavigationBarLoading(); //关闭加载动画
+						return;
+					}
+					that.items = that.items.concat(data.treatmentRecordList);
+					that.pageNumber++; //每触底一次 page +1
+					uni.hideNavigationBarLoading(); //关闭加载动画
 				})
 			}
 		}

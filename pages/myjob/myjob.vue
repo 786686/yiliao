@@ -35,7 +35,7 @@
 				</view>
 		</view>
 		<view class="btn-save" @click="submit">
-			发布职位
+			提交简历
 		</view>
 	</view>
 </template>

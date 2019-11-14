@@ -75,6 +75,7 @@
 				typeList:[],
 				typeNameList:[],
 				typeId:0,
+				sourceTypeIndex: 2,
 				sourceType: ['拍照', '相册', '拍照或相册'],
 				sizeTypeIndex: 2,
 				countIndex: 8,

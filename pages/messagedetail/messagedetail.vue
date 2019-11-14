@@ -18,7 +18,7 @@
 		<view class="leavemsg">
 			<view class="tit">留言</view>
 			<view class="leavemsg-list">
-				<view class="item" v-for="i in item.leaveMessage" :key="i">
+				<view class="item" v-for="i in leaveMessage" :key="i">
 					<view class="item-top">
 						<view class="item-l">
 							<image :src="i.avatar"></image>
@@ -34,7 +34,7 @@
 					</view>
 				</view>
 			</view>
-			<empty v-if="item.leaveMessage.length == 0"></empty>
+			<empty v-if="leaveMessage.length == 0"></empty>
 		</view>
 		<view class="btn-save" @click="apply">回复</view>
 	</view>
@@ -50,7 +50,12 @@
 		data() {
 			return {
 				item:{},
-				imageList:[]
+				imageList:[],
+				
+				leaveMessage:[],
+				timer: null,
+				pageNumber: 1,
+				hasData:true
 			}
 		},
 		onLoad(options) {
@@ -60,6 +65,22 @@
 		},
 		onShow() {
 			this.getDetail();
+		},
+		
+		onPullDownRefresh: function() {
+			//下拉刷新的时候请求一次数据
+			this.getDetail();
+		},
+		onReachBottom: function() {
+			//触底的时候请求数据，即为上拉加载更多
+			//为了更加清楚的看到效果，添加了定时器
+			if (this.timer != null) {
+				clearTimeout(this.timer);
+			}
+			let that = this;
+			this.timer = setTimeout(function() {
+				that.getDetail();
+			}, 1000);
 		},
 		methods: {
             previewImage: function(e) {
@@ -82,9 +103,14 @@
 			},
 			getDetail(){
 				let that = this;
+				
+				if(!that.hasData){
+					return false;
+				}
+				uni.showNavigationBarLoading();
 				let params = {
 					pageSize: 10,
-					pageNumber:1,
+					pageNumber:this.pageNumber,
 					id: this.id,
 					
 				}
@@ -97,6 +123,16 @@
 						}
 					}
 					that.item = data;
+					
+					if (data.leaveMessage.length == 0) {//没有数据
+						that.hasData= false;
+						uni.hideNavigationBarLoading();//关闭加载动画
+						return;
+					}
+					that.leaveMessage = that.leaveMessage.concat(data.leaveMessage);
+					that.pageNumber++;//每触底一次 page +1
+					uni.hideNavigationBarLoading();//关闭加载动画
+					
 					for(let i in data.images){
 						that.imageList.push(data.images[i])
 					}
