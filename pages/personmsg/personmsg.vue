@@ -3,13 +3,13 @@
 		<view class="set-list">
 			<view class="item">
 				<view class="item-l">姓名</view>
-				<view class="item-r"><input type="text" v-model="name" placeholder="请输入姓名" :disabled="nameAbled"></view>
+				<view class="item-r"><input type="text" v-model="name" placeholder="请输入姓名" :disabled="nameAbled" :class="{'inp-disabled':nameAbled}"></view>
 			</view>
 			<view class="item">
 				<view class="item-l">身份证号</view>
-				<view class="item-r"><input type="idcard" v-model="idNumber" placeholder="请输入身份证号" :disabled="cardAbled"></view>
+				<view class="item-r"><input type="idcard" v-model="idNumber" placeholder="请输入身份证号" :disabled="cardAbled" :class="{'inp-disabled':cardAbled}"></view>
 			</view>
-			<view class="item">
+			<!-- <view class="item">
 				<view class="item-l">性别</view>
 				<view class="item-r">
 					<picker @change="bindSexChange" :value="sexIndex" :range="sexList">
@@ -24,7 +24,7 @@
 							<view class="uni-input">{{birth}}</view>
 						</picker>
 					</view>
-			</view>
+			</view> -->
 			<!-- <view class="item">
 				<view class="item-l">联系电话</view>
 				<view class="item-r"><input type="text" v-model=""></view>
@@ -92,12 +92,12 @@ this.getDetail()
 						that.cardAbled = true;
 					}
 					that.name =  that.item.name;
-					that.sex =  that.item.sex == 2?2:1;
-					if(that.item.birth == ""){
-						that.birth =  that.getDate()
-					}else{
-						that.birth =  that.item.birth;
-					}
+					// that.sex =  that.item.sex == 2?2:1;
+					// if(that.item.birth == ""){
+					// 	that.birth =  that.getDate()
+					// }else{
+					// 	that.birth =  that.item.birth;
+					// }
 					
 					that.contactAddress =  that.item.contactAddress;
 					that.idNumber =  that.item.idNumber;
@@ -131,27 +131,40 @@ this.getDetail()
 				if(tools.isEmpty(this.name,"请输入姓名")){return;}
 				if(tools.isEmpty(this.idNumber,"请输入身份证号")){return;}
 				// /api/common/identityCheck.json?idCard=34&name=43
-				let params = {
-					name: this.name,
-					idCard:this.idNumber
-				}
+				// let params = {
+				// 	name: this.name,
+				// 	idCard:this.idNumber
+				// }
 				if(tools.isEmpty(that.contactAddress,"请输入联系地址")){return;}
 				// 检验身份证
-				tools.request("/api/common/identityCheck.json", params,1,true).then(function(data) {
-					
-					// 真正的提交
-					let params = {
-						name: that.name,
-						sex: that.sex,
-						birth: that.birth,
-						contactAddress: that.contactAddress,
-						idNumber:that.idNumber,
-						avatar: uni.getStorageSync('avatarUrl')
-					}
-					
-					tools.request("/api/index/updateUserInfo.json", params,1,true).then(function(res) {
-						tools.toastJumpTab("登记成功","/pages/my/my");
-					})
+				// tools.request("/api/common/identityCheck.json", params,1,true).then(function(data) {
+				// 	
+				// 	// 真正的提交
+				// 	let params = {
+				// 		name: that.name,
+				// 		sex: that.sex,
+				// 		birth: that.birth,
+				// 		contactAddress: that.contactAddress,
+				// 		idNumber:that.idNumber,
+				// 		avatar: uni.getStorageSync('avatarUrl')
+				// 	}
+				// 	
+				// 	tools.request("/api/index/updateUserInfo.json", params,1,true).then(function(res) {
+				// 		tools.toastJumpTab("登记成功","/pages/my/my");
+				// 	})
+				// })
+				
+				let params = {
+					name: that.name,
+					// sex: that.sex,
+					// birth: that.birth,
+					contactAddress: that.contactAddress,
+					idNumber:that.idNumber,
+					avatar: uni.getStorageSync('avatarUrl')
+				}
+				
+				tools.request("/api/index/updateUserInfo.json", params,1,true).then(function(res) {
+					tools.toastJumpTab("登记成功","/pages/my/my");
 				})
 				
 			}
